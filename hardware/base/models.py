@@ -36,7 +36,7 @@ class Hardware(models.Model):
         verbose_name='состояние',
         related_name='hardware'
     )
-    comment = models.TextField(max_length=2000, verbose_name='Примечание')
+    comment = models.TextField(max_length=2000, verbose_name='Примечание', default='')
 
     def __str__(self):
         return self.model

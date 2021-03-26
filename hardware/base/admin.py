@@ -1,3 +1,36 @@
 from django.contrib import admin
 
-# Register your models here.
+from base.models import Hardware, Type, Manufacturer, Status, Place
+
+
+@admin.register(Hardware)
+class HardwareAdmin(admin.ModelAdmin):
+    list_display = ['id', 'type', 'manufacturer', 'model', 'serial', 'place', 'comment']
+    fieldsets = (
+        ('Основные сведения', {
+            'fields': ('type', 'manufacturer', 'model')
+        }),
+        ('Внутренние сведения', {
+            'fields': ('serial', 'place', 'comment')
+        }),
+    )
+
+
+@admin.register(Type)
+class TypeAdmin(admin.ModelAdmin):
+    list_display = ['name']
+
+
+@admin.register(Manufacturer)
+class ManufacturerAdmin(admin.ModelAdmin):
+    list_display = ['name']
+
+
+@admin.register(Status)
+class StatusAdmin(admin.ModelAdmin):
+    list_display = ['name']
+
+
+@admin.register(Place)
+class PlaceAdmin(admin.ModelAdmin):
+    list_display = ['name']

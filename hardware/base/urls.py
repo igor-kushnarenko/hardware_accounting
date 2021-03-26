@@ -1,8 +1,7 @@
-from django.contrib import admin
-from django.urls import path, include
+from django.urls import path
 
-from .views import HelloView
+from . import views
 
 urlpatterns = [
-    path('', HelloView.as_view(), name='hello')
+    path('index/', views.index_view, name='index')
 ]

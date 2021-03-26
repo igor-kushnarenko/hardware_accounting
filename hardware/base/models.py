@@ -39,7 +39,7 @@ class Hardware(models.Model):
     comment = models.TextField(max_length=2000, verbose_name='Примечание', default='')
 
     def __str__(self):
-        return self.model
+        return f'{self.manufacturer} {self.model}'
 
 
 class Type(models.Model):

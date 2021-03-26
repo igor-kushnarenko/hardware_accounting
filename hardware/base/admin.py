@@ -5,13 +5,13 @@ from base.models import Hardware, Type, Manufacturer, Status, Place
 
 @admin.register(Hardware)
 class HardwareAdmin(admin.ModelAdmin):
-    list_display = ['id', 'type', 'manufacturer', 'model', 'serial', 'place', 'comment']
+    list_display = ['id', 'type', 'manufacturer', 'model', 'serial', 'place', 'status', 'comment']
     fieldsets = (
         ('Основные сведения', {
             'fields': ('type', 'manufacturer', 'model')
         }),
         ('Внутренние сведения', {
-            'fields': ('serial', 'place', 'comment')
+            'fields': ('serial', 'place', 'comment', 'status')
         }),
     )
 

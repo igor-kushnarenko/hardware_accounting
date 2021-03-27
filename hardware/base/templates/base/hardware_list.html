@@ -1,12 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-{% for hardware in hardware_list %}
-    {{ hardware.manufacturer }} {{ hardware.model }}
-{% endfor %}
-</body>
-</html>
+{% extends 'base/layout.html' %}
+{% block title %}Оборудование{% endblock %}
+{% block content %}
+<h2>Основной перечень оборудования</h2>
+<hr>
+<table width="100%" >
+    <tr>
+        <th align="left">Тип</th>
+        <th align="left">Производитель</th>
+        <th align="left">Модель</th>
+        <th align="left">Серийный номер</th>
+        <th align="left">Состояние</th>
+        <th align="left">Место</th>
+    </tr>
+
+    {% for hardware in hardware_list %}
+    <tr>
+        <td>{{ hardware.type }}</td>
+        <td>{{ hardware.manufacturer }}</td>
+        <td>{{ hardware.model }}</td>
+        <td>{{ hardware.serial }}</td>
+        <td>{{ hardware.status }}</td>
+        <td>{{ hardware.place }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

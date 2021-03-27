@@ -1,0 +1,24 @@
+body {
+    background: #001a4b;
+    color: white;
+}
+
+.content{
+width:1200px;
+margin:0 auto;
+}
+
+hr {
+border: none; /* Убираем границу для браузера Firefox */
+color: #27d200; /* Цвет линии для остальных браузеров */
+background-color: #27d200; /* Цвет линии для браузера Firefox и Opera */
+height: 2px; /* Толщина линии */
+}
+
+a:link {
+    color: #27d200;
+}
+
+a:visited{
+color: #00630c;
+}

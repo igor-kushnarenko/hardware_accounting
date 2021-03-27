@@ -14,3 +14,7 @@ class HardwaresListView(generic.ListView):
     context_object_name = 'hardware_list'
     queryset = Hardware.objects.all()
 
+
+class HardwaresDetailView(generic.DetailView):
+    model = Hardware
+

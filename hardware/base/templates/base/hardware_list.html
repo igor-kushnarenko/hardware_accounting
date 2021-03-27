@@ -11,6 +11,7 @@
         <th align="left">Серийный номер</th>
         <th align="left">Состояние</th>
         <th align="left">Место</th>
+        <th align="left">Действие</th>
     </tr>
 
     {% for hardware in hardware_list %}
@@ -21,6 +22,7 @@
         <td>{{ hardware.serial }}</td>
         <td>{{ hardware.status }}</td>
         <td>{{ hardware.place }}</td>
+        <td><a href="{% url 'hardware_detail' hardware.id %}">Подробнее...</a></td>
     </tr>
     {% endfor %}
 </table>

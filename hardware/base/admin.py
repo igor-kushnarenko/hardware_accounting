@@ -5,7 +5,9 @@ from base.models import Hardware, Type, Manufacturer, Status, Place
 
 @admin.register(Hardware)
 class HardwareAdmin(admin.ModelAdmin):
-    list_display = ['id', 'type', 'manufacturer', 'model', 'serial', 'place', 'status', 'comment']
+    list_display = ['id', 'type', 'manufacturer', 'model',
+                    'serial', 'place', 'status']
+    list_filter = ['place', 'status', 'type']
     fieldsets = (
         ('Основные сведения', {
             'fields': ('type', 'manufacturer', 'model')

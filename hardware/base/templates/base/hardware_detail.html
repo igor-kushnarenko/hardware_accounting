@@ -1,0 +1,13 @@
+{% extends 'base/layout.html' %}
+{% block title %}{{ object.manufacturer }} {{ object.model }}{% endblock %}
+{% block content %}
+<h1>{{ object.manufacturer }} {{ object.model }}</h1>
+<hr>
+<p>Расположение: {{ object.place }}</p>
+<h3>Состояние: {{ object.status }}</h3>
+<br>
+<p>Примечание: </p>
+<p>{{ object.comment }}</p>
+
+<p><a href="{% url 'hardware_list' %}">Назад</a></p>
+{% endblock %}

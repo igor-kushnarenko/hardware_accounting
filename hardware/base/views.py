@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.views import generic
-from django.views.generic.base import TemplateView
+from django.views.generic import FormView
+from django.views.generic.base import TemplateView, View
 
 from base.models import Hardware
+from base.form import HardwareForm
 
 
 def index_view(request):
@@ -19,3 +21,12 @@ class HardwaresListView(generic.ListView):
 class HardwaresDetailView(generic.DetailView):
     model = Hardware
 
+
+class AddHardwaresFormView(FormView):
+    template_name = 'base/add_hardware.html'
+    form_class = HardwareForm
+    success_url = 'hardwares'
+
+    def form_valid(self, form):
+        Hardware.objects.create(**form.cleaned_data)
+        return super(AddHardwaresFormView, self).form_valid(form)

@@ -2,11 +2,13 @@
 {% block title %}{{ object.manufacturer }} {{ object.model }}{% endblock %}
 {% block content %}
 <h1>{{ object.manufacturer }} {{ object.model }}</h1>
+<h5>Редактировать</h5>
 <hr>
 <p>Расположение: {{ object.place }}</p>
-<h3>Состояние: {{ object.status }}</h3>
+<p>Состояние: {{ object.status }}</p>
 <br>
-<p>Примечание: </p>
+<hr>
+<h3>Примечание: </h3>
 <p>{{ object.comment }}</p>
 
 <p><a href="{% url 'hardware_list' %}">Назад</a></p>

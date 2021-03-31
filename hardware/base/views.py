@@ -30,3 +30,7 @@ class AddHardwaresFormView(FormView):
     def form_valid(self, form):
         Hardware.objects.create(**form.cleaned_data)
         return super(AddHardwaresFormView, self).form_valid(form)
+
+# TODO добавить возможность редактирования оборудования
+# TODO добавить добавление ремонта на странице детальной информации
+# добавить кнопку Редактировать и Удалить на странице детальной информации

@@ -69,4 +69,22 @@ class Place(models.Model):
     def __str__(self):
         return self.name
 
-# TODO добавить модель ремонтов
+
+class Repair(models.Model):
+    date_repair = models.DateField(verbose_name='Дата отправки')
+    problem = models.TextField(max_length=1000 ,verbose_name='Неисправность')
+    contractor = models.CharField(max_length=30, verbose_name='Исполнитель')
+    end_date_repair = models.DateField(verbose_name='Дата возврата')
+    result = models.TextField(max_length=1000, verbose_name='Результат ремонта')
+    cost = models.IntegerField(verbose_name='Стоимость ремонта')
+    hardware = models.ForeignKey(
+        'Hardware',
+        on_delete=models.SET_DEFAULT,
+        default=True,
+        null=True,
+        verbose_name='Оборудование',
+        related_name='hardware',
+    )
+
+    def __str__(self):
+        return self.date_repair

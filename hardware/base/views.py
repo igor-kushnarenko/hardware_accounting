@@ -31,6 +31,28 @@ class AddHardwaresFormView(FormView):
         Hardware.objects.create(**form.cleaned_data)
         return super(AddHardwaresFormView, self).form_valid(form)
 
-# TODO добавить возможность редактирования оборудования
+
+class EditHardwaresView(View):
+    def get(self, request, pk):
+        hardware = Hardware.objects.get(id=pk)
+        hardware_form = HardwareForm(instance=hardware)
+        return render(
+            request,
+            'base/edit_hardware.html',
+            context={'hardware_form': hardware_form, 'pk': pk}
+        )
+
+    def post(self, request, pk):
+        hardware = Hardware.objects.get(id=pk)
+        hardware_form = HardwareForm(request.POST, instance=hardware)
+
+        if hardware_form.is_valid():
+            hardware.save()
+        return render(
+            request,
+            'base/edit_hardware.html',
+            context={'hardware_form': hardware_form, 'pk': pk}
+        )
+
 # TODO добавить добавление ремонта на странице детальной информации
 # добавить кнопку Редактировать и Удалить на странице детальной информации

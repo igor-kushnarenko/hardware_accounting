@@ -2,7 +2,7 @@
 {% block title %}{{ object.manufacturer }} {{ object.model }}{% endblock %}
 {% block content %}
 <h1>{{ object.manufacturer }} {{ object.model }}</h1>
-<h5>Редактировать</h5>
+<a href="{{ object.id }}/edit">Редактировать</a>
 <hr>
 <p>Расположение: {{ object.place }}</p>
 <p>Состояние: {{ object.status }}</p>

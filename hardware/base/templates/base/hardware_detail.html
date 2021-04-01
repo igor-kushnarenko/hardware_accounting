@@ -11,18 +11,16 @@
 <h3>Примечание: </h3>
 <p>{{ hardware.comment }}</p>
 <p><a href="{% url 'hardware_list' %}">Назад</a></p>
-
 <h2>Ремонты</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ repair_form.as_p }}
-    <button type="submit">Добавить</button>
-</form>
-<br>
-    <hr>
     {% for repair in repairs %}
         <p>Дата ремонта: {{ repair.date_repair }}</p>
         <p>Неисправность: {{ repair.problem }}</p>
     <br>
     {% endfor %}
+<hr>
+<form method="post">
+    {% csrf_token %}
+    {{ repair_form.as_p }}
+    <button type="submit">Добавить</button>
+</form>
 {% endblock %}

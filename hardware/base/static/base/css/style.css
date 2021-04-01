@@ -1,6 +1,8 @@
 body {
     background: #dfe3ee;
     color: #3b5998;
+    font-family: 'Times New Roman', Times, serif; /* Гарнитура текста */
+    font-size: 100%; /* Размер шрифта в процентах */
 }
 
 .content{

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from base.models import Hardware, Type, Manufacturer, Status, Place
+from base.models import Hardware, Type, Manufacturer, Status, Place, Repair
 
 
 @admin.register(Hardware)
@@ -36,3 +36,10 @@ class StatusAdmin(admin.ModelAdmin):
 @admin.register(Place)
 class PlaceAdmin(admin.ModelAdmin):
     list_display = ['name']
+
+
+@admin.register(Repair)
+class PlaceAdmin(admin.ModelAdmin):
+    list_display = ['date_repair', 'problem',
+                    'contractor', 'end_date_repair',
+                    'result', 'cost']

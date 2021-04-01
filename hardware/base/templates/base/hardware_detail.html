@@ -1,15 +1,28 @@
 {% extends 'base/layout.html' %}
-{% block title %}{{ object.manufacturer }} {{ object.model }}{% endblock %}
+{% block title %}{{ hardware.manufacturer }} {{ hardware.model }}{% endblock %}
 {% block content %}
-<h1>{{ object.manufacturer }} {{ object.model }}</h1>
-<a href="{{ object.id }}/edit">Редактировать</a>
+<h1>{{ hardware.manufacturer }} {{ hardware.model }}</h1>
+<a href="{{ hardware_id }}/edit">Редактировать</a>
 <hr>
-<p>Расположение: {{ object.place }}</p>
-<p>Состояние: {{ object.status }}</p>
+<p>Расположение: {{ hardware.place }}</p>
+<p>Состояние: {{ hardware.status }}</p>
 <br>
 <hr>
 <h3>Примечание: </h3>
-<p>{{ object.comment }}</p>
-
+<p>{{ hardware.comment }}</p>
 <p><a href="{% url 'hardware_list' %}">Назад</a></p>
+
+<h2>Ремонты</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ repair_form.as_p }}
+    <button type="submit">Добавить</button>
+</form>
+<br>
+    <hr>
+    {% for repair in repairs %}
+        <p>Дата ремонта: {{ repair.date_repair }}</p>
+        <p>Неисправность: {{ repair.problem }}</p>
+    <br>
+    {% endfor %}
 {% endblock %}

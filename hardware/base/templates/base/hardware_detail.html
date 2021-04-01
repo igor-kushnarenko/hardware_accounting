@@ -6,17 +6,18 @@
 <hr>
 <p>Расположение: {{ hardware.place }}</p>
 <p>Состояние: {{ hardware.status }}</p>
-<br>
-<hr>
 <h3>Примечание: </h3>
 <p>{{ hardware.comment }}</p>
 <p><a href="{% url 'hardware_list' %}">Назад</a></p>
+<br>
+<hr>
 <h2>Ремонты</h2>
     {% for repair in repairs %}
         <p>Дата ремонта: {{ repair.date_repair }}</p>
         <p>Неисправность: {{ repair.problem }}</p>
     <br>
     {% endfor %}
+<br>
 <hr>
 <form method="post">
     {% csrf_token %}

@@ -3,11 +3,31 @@ from django.contrib import admin
 from base.models import Hardware, Type, Manufacturer, Status, Place, Repair
 
 
+def make_repair_status_inactive(modeladmin, request, queryset):
+    queryset.update(status=False)
+
+
+def make_repair_status_active(modeladmin, request, queryset):
+    queryset.update(status=True)
+
+
+make_repair_status_inactive.short_description = 'Не в ремонте'
+make_repair_status_active.short_description = 'В ремонте'
+
+
+class RepairInLine(admin.TabularInline):
+    model = Repair
+
+
 @admin.register(Hardware)
 class HardwareAdmin(admin.ModelAdmin):
-    list_display = ['id', 'type', 'manufacturer', 'model',
+    list_display = ['manufacturer', 'model', 'type',
                     'serial', 'place', 'status']
+    list_display_links = ['manufacturer', 'model']
     list_filter = ['place', 'status', 'type']
+    list_per_page = 30
+    save_as = True
+    inlines = [RepairInLine]
     fieldsets = (
         ('Основные сведения', {
             'fields': ('type', 'manufacturer', 'model')
@@ -26,6 +46,7 @@ class TypeAdmin(admin.ModelAdmin):
 @admin.register(Manufacturer)
 class ManufacturerAdmin(admin.ModelAdmin):
     list_display = ['name']
+    sortable_by = ['name']
 
 
 @admin.register(Status)
@@ -39,7 +60,11 @@ class PlaceAdmin(admin.ModelAdmin):
 
 
 @admin.register(Repair)
-class PlaceAdmin(admin.ModelAdmin):
-    list_display = ['date_repair', 'problem',
-                    'contractor', 'end_date_repair',
-                    'result', 'cost']
+class RepairAdmin(admin.ModelAdmin):
+    list_display = ['date_repair', 'hardware',
+                    'problem', 'contractor',
+                    'end_date_repair', 'result',
+                    'cost', 'status']
+    list_editable = ['end_date_repair']
+    list_filter = ['status']
+    actions = [make_repair_status_inactive, make_repair_status_active]

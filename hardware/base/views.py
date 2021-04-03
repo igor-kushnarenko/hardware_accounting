@@ -19,9 +19,6 @@ class HardwaresListView(generic.ListView):
     queryset = Hardware.objects.order_by('place', '-status')
 
 
-# class HardwaresDetailView(generic.DetailView):
-#     model = Hardware
-
 class HardwaresDetailView(View):
     def get(self, request, pk):
         hardware = Hardware.objects.get(id=pk)
@@ -79,5 +76,6 @@ class EditHardwaresView(View):
             'base/edit_hardware.html',
             context={'hardware_form': hardware_form, 'pk': pk}
         )
+
 
 # todo добавить кнопку Удалить на странице детальной информации

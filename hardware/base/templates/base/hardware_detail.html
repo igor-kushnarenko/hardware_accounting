@@ -4,18 +4,23 @@
 <h1>{{ hardware.manufacturer }} {{ hardware.model }}</h1>
 <a href="{{ hardware_id }}/edit">Редактировать</a>
 <hr>
-<p>Расположение: {{ hardware.place }}</p>
-<p>Состояние: {{ hardware.status }}</p>
-<h3>Примечание: </h3>
-<p>{{ hardware.comment }}</p>
-<p><a href="{% url 'hardware_list' %}">Назад</a></p>
+    <div class="line_block">
+    <p>Расположение: {{ hardware.place }}</p>
+    </div>
+    <div class="line_block">
+    <p>Состояние: {{ hardware.status }}</p>
+    </div>
 <br>
+<br>
+<br>
+    <h3>Примечание</h3>
+    <p>{{ hardware.comment }}</p>
+<p><a href="{% url 'hardware_list' %}">Назад</a></p>
 <hr>
-<h2>Ремонты</h2>
+<h3>Ремонты</h3>
     {% for repair in repairs %}
         <p>Дата ремонта: {{ repair.date_repair }}</p>
         <p>Неисправность: {{ repair.problem }}</p>
-    <br>
     {% endfor %}
 <br>
 <hr>

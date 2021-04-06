@@ -4,12 +4,8 @@
 <h1>{{ hardware.manufacturer }} {{ hardware.model }}</h1>
 <a href="{{ hardware_id }}/edit">Редактировать</a>
 <hr>
-    <div class="line_block">
-    <p>Расположение: {{ hardware.place }}</p>
-    </div>
-    <div class="line_block">
-    <p>Состояние: {{ hardware.status }}</p>
-    </div>
+    <div class="line_block"><p>Расположение: {{ hardware.place }}</p></div>
+    <div class="line_block"><p>Состояние: {{ hardware.status }}</p></div>
 <br>
 <br>
 <br>
@@ -19,11 +15,20 @@
 <hr>
 <h3>Ремонты</h3>
     {% for repair in repairs %}
-        <p>Дата ремонта: {{ repair.date_repair }}</p>
-        <p>Неисправность: {{ repair.problem }}</p>
-    {% endfor %}
+<div class="line_block_yellow"><p>Дата начала ремонта: {{ repair.date_repair }}</p></div>
+<div class="line_block_yellow"><p>Дата окончания ремонта: {{ repair.end_date_repair }}</p></div>
 <br>
+<br>
+<br>
+<br>
+<div class="line_block_without_background"><p>Неисправность: {{ repair.problem }}</p></div>
+<div class="line_block_without_background"><p>Результат ремонта: {{ repair.result }}</p></div>
+<p>Стоимость ремонта: {{ repair.cost }}</p>
+<br>
+<br>
+    {% endfor %}
 <hr>
+<h3>Добавить ремонт</h3>
 <form method="post">
     {% csrf_token %}
     {{ repair_form.as_p }}

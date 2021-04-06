@@ -8,9 +8,28 @@ body {
 .line_block {
         width:300px;
         height:30px;
-        background:#f1f1f1;
+        background:#eeeeee;
         float:left;
         margin: 0 5px 5px 0;
+        text-align:center;
+        padding: 20px;
+}
+
+.line_block_yellow {
+        width:300px;
+        height:30px;
+        background:#faebd7;
+        float:left;
+        margin: 0 5px 5px 0;
+        text-align:center;
+        padding: 20px;
+}
+
+.line_block_without_background {
+        width:300px;
+        height:5px;
+        float:left;
+        margin: 0 10px 10px 0;
         text-align:center;
         padding: 20px;
 }

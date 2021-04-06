@@ -24,7 +24,7 @@ class HardwareAdmin(admin.ModelAdmin):
     list_display = ['manufacturer', 'model', 'type',
                     'serial', 'place', 'status']
     list_display_links = ['manufacturer', 'model']
-    list_filter = ['place', 'status', 'type']
+    list_filter = ['place', 'status', 'type', 'manufacturer']
     list_per_page = 30
     save_as = True
     inlines = [RepairInLine]

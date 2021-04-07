@@ -86,6 +86,3 @@ class Repair(models.Model):
         verbose_name='Оборудование',
         related_name='hardware',
     )
-
-    def __str__(self):
-        return len(self.object.all())

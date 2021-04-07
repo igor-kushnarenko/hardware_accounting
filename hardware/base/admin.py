@@ -17,6 +17,8 @@ make_repair_status_active.short_description = 'В ремонте'
 
 class RepairInLine(admin.TabularInline):
     model = Repair
+    max_num = 3
+    extra = True
 
 
 @admin.register(Hardware)
@@ -25,7 +27,7 @@ class HardwareAdmin(admin.ModelAdmin):
                     'serial', 'place', 'status']
     list_display_links = ['manufacturer', 'model']
     list_filter = ['place', 'status', 'type', 'manufacturer']
-    list_per_page = 30
+    list_per_page = 50
     save_as = True
     inlines = [RepairInLine]
     fieldsets = (

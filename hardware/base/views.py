@@ -76,6 +76,3 @@ class EditHardwaresView(View):
             'base/edit_hardware.html',
             context={'hardware_form': hardware_form, 'pk': pk}
         )
-
-
-# todo добавить кнопку Удалить на странице детальной информации

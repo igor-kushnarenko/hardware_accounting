@@ -1,5 +1,6 @@
 from django.contrib.auth import authenticate, login
-from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.views import LoginView
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 
 from users.forms import AuthForm
@@ -24,3 +25,7 @@ def login_view(request):
         auth_form = AuthForm()
     context = {'form': auth_form}
     return render(request, 'users/login.html', context=context)
+
+
+class AlternativeLoginView(LoginView):
+    template_name = 'users/login.html'

@@ -34,6 +34,7 @@
     </tbody>
     {% endfor %}
 </table>
+<a href="{% url 'logout' %}">Выйти</a>
 {% else %}
 <h3>Welcome to the jungle</h3>
 <a href="{% url 'login' %}">Войти</a>

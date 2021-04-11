@@ -1,31 +1,41 @@
 {% extends 'base/layout.html' %}
 {% block title %}Оборудование{% endblock %}
 {% block content %}
+
+{% if request.user.is_authenticated %}
 <h2>Основной перечень оборудования</h2>
 <form action="{% url 'add_hardware' %}">
     <input type="submit" value="Добавить оборудование">
 </form>
 <hr>
-<table width="100%" >
-    <tr>
-        <th align="left">Тип</th>
-        <th align="left">Производитель</th>
-        <th align="left">Модель</th>
-        <th align="left">Серийный номер</th>
-        <th align="left">Место</th>
-        <th align="left">Состояние</th>
-        <th align="left">Действие</th>
-    </tr>
+<table width="100%">
+    <thead>
+        <tr>
+            <th align="left">Тип</th>
+            <th align="left">Производитель</th>
+            <th align="left">Модель</th>
+            <th align="left">Серийный номер</th>
+            <th align="left">Место</th>
+            <th align="left">Состояние</th>
+            <th align="left">Действие</th>
+        </tr>
+    </thead>
     {% for hardware in hardware_list %}
-    <tr>
-        <td>{{ hardware.type }}</td>
-        <td>{{ hardware.manufacturer }}</td>
-        <td>{{ hardware.model }}</td>
-        <td>{{ hardware.serial }}</td>
-        <td>{{ hardware.place }}</td>
-        <td>{{ hardware.status }}</td>
-        <td><a href="{% url 'hardware_detail' hardware.id %}">Подробнее...</a></td>
-    </tr>
+    <tbody>
+        <tr>
+            <td>{{ hardware.type }}</td>
+            <td>{{ hardware.manufacturer }}</td>
+            <td>{{ hardware.model }}</td>
+            <td>{{ hardware.serial }}</td>
+            <td>{{ hardware.place }}</td>
+            <td>{{ hardware.status }}</td>
+            <td><a href="{% url 'hardware_detail' hardware.id %}">Подробнее...</a></td>
+        </tr>
+    </tbody>
     {% endfor %}
 </table>
+{% else %}
+<h3>Welcome to the jungle</h3>
+<a href="{% url 'login' %}">Войти</a>
+{% endif %}
 {% endblock %}

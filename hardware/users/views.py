@@ -16,7 +16,7 @@ def login_view(request):
             if user:
                 if user.is_active:
                     login(request, user)
-                    return HttpResponseRedirect('http://127.0.0.1:8000/hardwares/')
+                    return HttpResponseRedirect('http://127.0.0.1:8000/')
                 else:
                     auth_form.add_error('__all__', 'Пользователь не найден в системе!')
             else:

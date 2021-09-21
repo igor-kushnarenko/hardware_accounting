@@ -60,7 +60,6 @@ move_to_sclad.short_description = 'На склад'
 move_to_mediaclass.short_description = 'В Медиакласс'
 
 
-
 class RepairInLine(admin.TabularInline):
     model = Repair
     max_num = 3

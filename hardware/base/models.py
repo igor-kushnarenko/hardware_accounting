@@ -41,6 +41,9 @@ class Hardware(models.Model):
     def __str__(self):
         return f'{self.manufacturer} {self.model}'
 
+    class Meta:
+        ordering = ['type']
+
 
 class Type(models.Model):
     name = models.CharField(max_length=50)

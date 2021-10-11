@@ -11,7 +11,6 @@
 <br>
     <h3>Примечание</h3>
     <p>{{ hardware.comment }}</p>
-<p><a href="{% url 'hardware_list' %}">Назад</a></p>
 <hr>
 <h3>Ремонты</h3>
     {% for repair in repairs %}
@@ -34,4 +33,6 @@
     {{ repair_form.as_p }}
     <button type="submit">Добавить</button>
 </form>
+<a href="delete/{{hardware.id}}">Удалить</a>
+<a href="{% url 'hardware_list' %}">Назад</a>
 {% endblock %}

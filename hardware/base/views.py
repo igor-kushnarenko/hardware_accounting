@@ -17,7 +17,7 @@ class HardwaresListView(generic.ListView):
     model = Hardware
     template_name = 'hardware_list.html'
     context_object_name = 'hardware_list'
-    queryset = Hardware.objects.order_by('place', '-status')
+    queryset = Hardware.objects.order_by('type', 'status')
 
 
 class HardwaresDetailView(View):
@@ -49,7 +49,7 @@ class HardwaresDetailView(View):
 class AddHardwaresFormView(FormView):
     template_name = 'base/add_hardware.html'
     form_class = HardwareForm
-    success_url = 'hardwares'
+    success_url = '/'
 
     def form_valid(self, form):
         Hardware.objects.create(**form.cleaned_data)
@@ -77,3 +77,13 @@ class EditHardwaresView(View):
             'base/edit_hardware.html',
             context={'hardware_form': hardware_form, 'pk': pk}
         )
+
+def delete(request, id): #функция для удаления приборов
+    try:
+        hardware = Hardware.objects.get(id=id)
+        hardware.delete()
+        return HttpResponseRedirect("/")
+    except Hardware.DoesNotExist:
+        return HttpResponseNotFound("<h2>Hardware not found</h2>")
+
+

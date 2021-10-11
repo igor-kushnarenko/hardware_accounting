@@ -1,7 +1,7 @@
 {% extends 'base/layout.html' %}
 {% block title %}{{ hardware.manufacturer }} {{ hardware.model }}{% endblock %}
 {% block content %}
-<h1>{{ hardware.manufacturer }} {{ hardware.model }}</h1>
+<h1>{{ hardware.manufacturer }} {{ hardware.model }} {{ hardware.serial }}</h1>
 <a href="{{ hardware_id }}/edit">Редактировать</a>
 <hr>
     <div class="line_block"><p>Расположение: {{ hardware.place }}</p></div>
@@ -23,6 +23,9 @@
 <div class="line_block_without_background"><p>Неисправность: {{ repair.problem }}</p></div>
 <div class="line_block_without_background"><p>Результат ремонта: {{ repair.result }}</p></div>
 <p>Стоимость ремонта: {{ repair.cost }}</p>
+
+<p><a href="edit_repair/{{repair.id}}">Редактировать</a></p>
+
 <br>
 <br>
     {% endfor %}

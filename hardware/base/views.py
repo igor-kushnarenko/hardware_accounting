@@ -78,6 +78,25 @@ class EditHardwaresView(View):
             context={'hardware_form': hardware_form, 'pk': pk}
         )
 
+def edit_repair(request, id):
+    try:
+        repair = Repair.objects.get(id=id)
+        if request.method == "POST":
+            repair.date_repair = request.POST.get("date_repair")
+            repair.problem = request.POST.get("problem")
+            repair.contractor = request.POST.get("contractor")
+            repair.end_date_repair = request.POST.get("end_date_repair")
+            repair.result = request.POST.get("result")
+            repair.cost = request.POST.get("cost")
+            repair.status = request.POST.get("status")
+            repair.save()
+            return HttpResponseRedirect(f"/")
+        else:
+            return render(request, "base/edit_repair.html", {"repair": repair})
+    except Hardware.DoesNotExist:
+        return HttpResponseNotFound("<h2>Hardware not found</h2>")
+
+
 def delete(request, id): #функция для удаления приборов
     try:
         hardware = Hardware.objects.get(id=id)

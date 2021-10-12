@@ -13,23 +13,35 @@
     <p>{{ hardware.comment }}</p>
 <hr>
 <h3>Ремонты</h3>
-    {% for repair in repairs %}
-<div class="line_block_yellow"><p>Дата начала ремонта: {{ repair.date_repair }}</p></div>
-<div class="line_block_yellow"><p>Дата окончания ремонта: {{ repair.end_date_repair }}</p></div>
-<br>
-<br>
-<br>
-<br>
-<div class="line_block_without_background"><p>Неисправность: {{ repair.problem }}</p></div>
-<div class="line_block_without_background"><p>Результат ремонта: {{ repair.result }}</p></div>
-<p>Стоимость ремонта: {{ repair.cost }}</p>
+    
+    <table width="100%" id="myTable2">
+        <thead>
+            <tr>
+                <th onclick="sortTable(0)" align="left">Дата начала ремонта</th>
+                <th onclick="sortTable(1)" align="left">Неисправность</th>
+                <th onclick="sortTable(2)" align="left">Подрядчик</th>
+                <th onclick="sortTable(3)" align="left">Дата окончания ремонта</th>
+                <th onclick="sortTable(4)" align="left">Результат ремонта</th>
+                <th onclick="sortTable(5)" align="left">Стоимость ремонта</th>
+                <th onclick="sortTable(5)" align="left">В ремонте</th>
+            </tr>
+        </thead>
+        {% for repair in repairs %}
+        <tbody>
+            <tr>
+                <td>{{ repair.date_repair }}</td>
+                <td>{{ repair.problem }}</td>
+                <td>{{ repair.contractor }}</td>
+                <td>{{ repair.end_date_repair }}</td>
+                <td>{{ repair.result }}</td>
+                <td>{{ repair.cost }}</td>
+                <td>{{ repair.status }}</td>
+                <td><a href="edit_repair/{{repair.id}}">Редактировать</a><a href="delete_repair/{{repair.id}}">Удалить</a></td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
 
-<p><a href="edit_repair/{{repair.id}}">Редактировать</a></p>
-<p><a href="delete_repair/{{repair.id}}">Удалить</a></p>
-
-<br>
-<br>
-    {% endfor %}
 <hr>
 <h3>Добавить ремонт</h3>
 <form method="post">

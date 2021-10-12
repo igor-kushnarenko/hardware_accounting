@@ -25,6 +25,7 @@
 <p>Стоимость ремонта: {{ repair.cost }}</p>
 
 <p><a href="edit_repair/{{repair.id}}">Редактировать</a></p>
+<p><a href="delete_repair/{{repair.id}}">Удалить</a></p>
 
 <br>
 <br>
@@ -33,7 +34,34 @@
 <h3>Добавить ремонт</h3>
 <form method="post">
     {% csrf_token %}
-    {{ repair_form.as_p }}
+    <p>
+        <label>Дата начала ремонта</label><br>
+        <input type="date" name="date_repair" value="{{repair.date_repair}}" />
+    </p>
+    <p>
+        <label>Проблема</label><br>
+        <input type="text" name="problem" value="{{repair.problem}}" />
+    </p>
+    <p>
+        <label>Подрядчик</label><br>
+        <input type="text" name="contractor" value="{{repair.contractor}}" />
+    </p>
+    <p>
+        <label>Дата окончания ремонта</label><br>
+        <input type="date" name="end_date_repair" value="{{repair.end_date_repair}}" />
+    </p>
+    <p>
+        <label>Результат ремонта</label><br>
+        <input type="text" name="result" value="{{repair.result}}" />
+    </p>
+    <p>
+        <label>Стоимость ремонта</label><br>
+        <input type="number" name="cost" value="{{repair.cost}}" />
+    </p>
+    <p>
+        <label>Статус ремонта</label><br>
+        <input type="checkbox" name="cost" value="{{repair.status}}" />
+    </p>
     <button type="submit">Добавить</button>
 </form>
 <a href="delete/{{hardware.id}}">Удалить</a>

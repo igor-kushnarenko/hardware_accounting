@@ -12,4 +12,4 @@ class HardwareForm(forms.ModelForm):
 class RepairForm(forms.ModelForm):
     class Meta:
         model = Repair
-        fields = ['date_repair', 'problem', 'contractor', 'result', 'cost']
+        fields = ['date_repair', 'problem', 'contractor', 'end_date_repair', 'result', 'cost', 'status']

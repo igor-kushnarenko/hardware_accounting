@@ -25,7 +25,6 @@ class HardwaresDetailView(View):
         hardware = Hardware.objects.get(id=pk)
         hardware_id = pk
         repairs = Repair.objects.filter(hardware=hardware_id)
-        repair_form = RepairForm()
         return render(
             request,
             'base/hardware_detail.html',
@@ -33,7 +32,6 @@ class HardwaresDetailView(View):
                 'hardware': hardware,
                 'hardware_id': hardware_id,
                 'repairs': repairs,
-                'repair_form': repair_form,
             }
         )
 
@@ -95,6 +93,16 @@ def edit_repair(request, id):
             return render(request, "base/edit_repair.html", {"repair": repair})
     except Hardware.DoesNotExist:
         return HttpResponseNotFound("<h2>Hardware not found</h2>")
+
+
+def delete_repair(request, id):
+    try:
+        repair = Repair.objects.get(id=id)
+        hardware_id = repair.hardware.id
+        repair.delete()
+        return HttpResponseRedirect(f'/hardwares/{hardware_id}')
+    except Hardware.DoesNotExist:
+        return HttpResponseNotFound("<h2>Repair not found</h2>")
 
 
 def delete(request, id): #функция для удаления приборов

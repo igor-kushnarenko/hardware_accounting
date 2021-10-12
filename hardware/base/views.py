@@ -79,6 +79,7 @@ class EditHardwaresView(View):
 def edit_repair(request, id):
     try:
         repair = Repair.objects.get(id=id)
+        hardware_id = repair.hardware.id
         if request.method == "POST":
             repair.date_repair = request.POST.get("date_repair")
             repair.problem = request.POST.get("problem")
@@ -88,7 +89,7 @@ def edit_repair(request, id):
             repair.cost = request.POST.get("cost")
             repair.status = request.POST.get("status")
             repair.save()
-            return HttpResponseRedirect(f"/")
+            return HttpResponseRedirect(f"/hardwares/{hardware_id}")
         else:
             return render(request, "base/edit_repair.html", {"repair": repair})
     except Hardware.DoesNotExist:

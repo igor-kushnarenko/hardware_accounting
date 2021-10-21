@@ -1,4 +1,5 @@
 from django.db import models
+from django.core import validators
 
 
 class Hardware(models.Model):
@@ -19,7 +20,12 @@ class Hardware(models.Model):
         related_name='hardware'
     )
     model = models.CharField(max_length=50, verbose_name='модель')
-    serial = models.CharField(max_length=50, verbose_name='серийный номер')
+    serial = models.CharField(
+        max_length=50, 
+        verbose_name='серийный номер',
+        validators=[validators.MinLengthValidator(4)],
+        error_messages={'min_length': 'Серийный номер слишком короткий! Не менее 4х символов.'}
+        )
     place = models.ForeignKey(
         'Place',
         on_delete=models.SET_DEFAULT,
@@ -43,6 +49,9 @@ class Hardware(models.Model):
 
     class Meta:
         ordering = ['type']
+        verbose_name_plural = 'Оборудование'
+        verbose_name = 'Оборудование'
+        unique_together = ('model', 'serial')
 
 
 class Type(models.Model):
@@ -51,12 +60,22 @@ class Type(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = 'Типы оборудования'
+        verbose_name = 'Тип оборудования'
+        ordering = ['name']
+
 
 class Manufacturer(models.Model):
     name = models.CharField(max_length=50)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = 'Производители'
+        verbose_name = 'Производитель'
+        ordering = ['name']
 
 
 class Status(models.Model):
@@ -65,12 +84,22 @@ class Status(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name_plural = 'Статусы'
+        verbose_name = 'Статус'
+        ordering = ['name']
+
 
 class Place(models.Model):
     name = models.CharField(max_length=50)
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name_plural = 'Расположения'
+        verbose_name = 'Расположение'
+        ordering = ['name']
 
 
 class Repair(models.Model):
@@ -82,10 +111,16 @@ class Repair(models.Model):
     cost = models.IntegerField(verbose_name='Стоимость ремонта', null=True)
     status = models.BooleanField(verbose_name='Активный', default=True)
     hardware = models.ForeignKey(
-        'Hardware',
+        Hardware,
         on_delete=models.SET_DEFAULT,
         default=True,
         null=True,
         verbose_name='Оборудование',
         related_name='hardware',
     )
+
+    class Meta:
+        verbose_name_plural = 'Ремонты'
+        verbose_name = 'Ремонт'
+        get_latest_by = 'date_repair'
+        ordering = ['date_repair']

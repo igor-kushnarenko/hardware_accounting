@@ -1,0 +1,11 @@
+{% extends 'base/layout.html' %}
+{% block title%}Редактирование ремонта{% endblock%}
+{% block content %}
+<h1>Редактирование ремонта</h1>
+<form method="post">
+	{% csrf_token %}
+	{{ repair.date_repair }}
+	{{ repair.problem }}
+</form>
+
+{% endblock %}

@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, HttpResponseRedirect
 from django.shortcuts import render
 from django.views import generic
@@ -76,26 +76,41 @@ class EditHardwaresView(View):
             context={'hardware_form': hardware_form, 'pk': pk}
         )
 
-def edit_repair(request, id):
-    try:
-        repair = Repair.objects.get(id=id)
-        hardware_id = repair.hardware.id
-        if request.method == "POST":
-            repair.date_repair = request.POST.get("date_repair")
-            repair.problem = request.POST.get("problem")
-            repair.contractor = request.POST.get("contractor")
-            repair.end_date_repair = request.POST.get("end_date_repair")
-            repair.result = request.POST.get("result")
-            repair.cost = request.POST.get("cost")
-            repair.status = request.POST.get("status")
-            repair.save()
-            return HttpResponseRedirect(f"/hardwares/{hardware_id}")
-        else:
-            return render(request, "base/edit_repair.html", {"repair": repair})
-    except Hardware.DoesNotExist:
-        return HttpResponseNotFound("<h2>Hardware not found</h2>")
+# для формы с подставлением данных
+# def edit_repair(request, id):
+#     try:
+#         repair = Repair.objects.get(id=id)
+#         hardware_id = repair.hardware.id
+#         if request.method == "POST":
+#             repair.date_repair = request.POST.get("date_repair")
+#             repair.problem = request.POST.get("problem")
+#             repair.contractor = request.POST.get("contractor")
+#             repair.end_date_repair = request.POST.get("end_date_repair")
+#             repair.result = request.POST.get("result")
+#             repair.cost = request.POST.get("cost")
+#             repair.status = request.POST.get("status")
+#             repair.save()
+#             return HttpResponseRedirect(f"/hardwares/{hardware_id}")
+#         else:
+#             return render(request, "base/edit_repair_test.html", {"repair": repair})
+#     except Hardware.DoesNotExist:
+#         return HttpResponseNotFound("<h2>Hardware not found</h2>")
 
 
+class EditRepairView(FormView):
+    """
+    Метод редактирования ремонтов
+    """
+    template_name = 'base/edit_repair.html'
+    form_class = RepairForm
+    success_url = '/'
+
+    def form_valid(self, form):
+        Repair.objects.create(**form.cleaned_data)
+        return super(EditRepairView, self).form_valid(form)
+
+
+# функция удаления ремонтов
 def delete_repair(request, id):
     try:
         repair = Repair.objects.get(id=id)
@@ -106,7 +121,8 @@ def delete_repair(request, id):
         return HttpResponseNotFound("<h2>Repair not found</h2>")
 
 
-def delete(request, id): #функция для удаления приборов
+# функция удаления приборов
+def delete(request, id):
     try:
         hardware = Hardware.objects.get(id=id)
         hardware.delete()

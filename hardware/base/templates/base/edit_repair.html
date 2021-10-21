@@ -1,0 +1,14 @@
+{% extends 'base/layout.html' %}
+{% block title%}Редактирование ремонта{% endblock%}
+{% block content %}
+<h1>Редактирование ремонта</h1>
+<form method="post">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<input type="submit" value="Сохранить">
+	<br>
+</form>
+<form action="{% url 'hardware_list' %}">
+    <input type="submit" value="Отмена">
+</form>
+{% endblock %}

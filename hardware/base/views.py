@@ -1,3 +1,4 @@
+import xlwt
 from django.http import HttpResponse, HttpResponseNotFound
 from django.shortcuts import render, HttpResponseRedirect
 from django.shortcuts import render
@@ -5,7 +6,7 @@ from django.views import generic
 from django.views.generic import FormView
 from django.views.generic.base import TemplateView, View
 
-from base.models import Hardware, Repair, Place
+from base.models import Hardware, Repair, Place, Type, Manufacturer, Status
 from base.form import HardwareForm, RepairForm
 
 
@@ -140,3 +141,52 @@ class PlacesHardwaresView(View):
             'hardwares': hardwares
         })
 
+
+def export_hardwares_xls(request, id):
+    response = HttpResponse(content_type='application/ms-excel')
+    response['Content-Disposition'] = 'attachment; filename="hardwares.xls"'
+
+    wb = xlwt.Workbook(encoding='utf-8')
+    ws = wb.add_sheet('Оборудование')
+
+    # Sheet header, first row
+    row_num = 0
+
+    font_style = xlwt.XFStyle()
+    font_style.font.bold = True
+
+    columns = ['Тип', 'Производитель', 'Модель', 'Серийный номер', 'Расположение', 'Состояние']
+
+    for col_num in range(len(columns)):
+        ws.write(row_num, col_num, columns[col_num], font_style)
+
+    # Sheet body, remaining rows
+    font_style = xlwt.XFStyle()
+
+    rows = Hardware.objects.filter(place=id).values_list(
+        'type',
+        'manufacturer',
+        'model',
+        'serial',
+        'place',
+        'status',
+    )
+
+    for row in rows:
+        row_num += 1
+        type = row[0]
+        manufacturer = row[1]
+        model = row[2]
+        serial = row[3]
+        place = row[4]
+        status = row[5]
+
+        ws.write(row_num, 0, Type.objects.get(id=type).name, font_style)
+        ws.write(row_num, 1, Manufacturer.objects.get(id=manufacturer).name, font_style)
+        ws.write(row_num, 2, model, font_style)
+        ws.write(row_num, 3, serial, font_style)
+        ws.write(row_num, 4, Place.objects.get(id=place).name, font_style)
+        ws.write(row_num, 5, Status.objects.get(id=status).name, font_style)
+
+    wb.save(response)
+    return response

@@ -10,5 +10,6 @@ urlpatterns = [
     path('hardwares/edit_repair/<int:id>', views.EditRepairView.as_view(), name='edit_repair'),
     path('hardwares/delete_repair/<int:id>', views.delete_repair, name='delete_repair'),
     path('hardwares/delete/<int:id>', views.delete),
-    path('hardwares/places/<int:id>', views.PlacesHardwaresView.as_view(), name='places_hardwares')
+    path('hardwares/places/<int:id>', views.PlacesHardwaresView.as_view(), name='places_hardwares'),
+    path('export_hardwares_xls/<int:id>', views.export_hardwares_xls, name='export_hardwares_xls'),
 ]

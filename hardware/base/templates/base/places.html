@@ -1,9 +1,7 @@
 {% extends 'base/layout.html' %}
-{% block title %}Оборудование{% endblock %}
+{% block title %}{{ place }}{% endblock %}
 {% block content %}
-
-{% if request.user.is_authenticated %}
-<h2>Основной перечень оборудования</h2>
+<h1>Зона: {{place.name}}</h1>
 <form action="{% url 'add_hardware' %}">
     <input type="submit" value="Добавить...">
 </form>
@@ -15,31 +13,23 @@
             <th onclick="sortTable(1)" align="left">Производитель</th>
             <th onclick="sortTable(2)" align="left">Модель</th>
             <th onclick="sortTable(3)" align="left">Серийный номер</th>
-            <th onclick="sortTable(4)" align="left">Место</th>
             <th onclick="sortTable(5)" align="left">Состояние</th>
             <th onclick="sortTable(6)" align="left">Действие</th>
         </tr>
     </thead>
-    {% for hardware in hardware_list %}
+    {% for hardware in hardwares %}
     <tbody>
         <tr>
             <td>{{ hardware.type }}</td>
             <td>{{ hardware.manufacturer }}</td>
             <td>{{ hardware.model }}</td>
             <td>{{ hardware.serial }}</td>
-            <td><a href="{% url 'places_hardwares' hardware.place_id %}">{{ hardware.place }}</a></td>
             <td>{{ hardware.status }}</td>
             <td><a href="{% url 'hardware_detail' hardware.id %}">Подробнее...</a></td>
         </tr>
     </tbody>
     {% endfor %}
 </table>
-<a href="{% url 'logout' %}">Выйти</a>
-{% else %}
-<h3>Welcome to the jungle</h3>
-<a href="{% url 'login' %}">Войти</a>
-{% endif %}
-
 
 <!-- скрипт для сортировки по заголовкам таблицы -->
 <script type="text/javascript">

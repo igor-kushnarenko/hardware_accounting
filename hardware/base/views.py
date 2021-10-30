@@ -5,7 +5,7 @@ from django.views import generic
 from django.views.generic import FormView
 from django.views.generic.base import TemplateView, View
 
-from base.models import Hardware, Repair
+from base.models import Hardware, Repair, Place
 from base.form import HardwareForm, RepairForm
 
 
@@ -130,4 +130,13 @@ def delete(request, id):
     except Hardware.DoesNotExist:
         return HttpResponseNotFound("<h2>Hardware not found</h2>")
 
+
+class PlacesHardwaresView(View):
+    def get(self, request, id):
+        place = Place.objects.get(pk=id)
+        hardwares = Hardware.objects.filter(place=id)
+        return render(request, 'base/places.html', context={
+            'place': place,
+            'hardwares': hardwares
+        })
 

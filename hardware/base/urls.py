@@ -1,14 +1,14 @@
 from django.urls import path
 
-from base.views import HardwaresListView, HardwaresDetailView, \
-    AddHardwaresFormView, EditHardwaresView, delete, EditRepairView, delete_repair
+from base import views
 
 urlpatterns = [
-    path('', HardwaresListView.as_view(), name='hardware_list'),
-    path('add', AddHardwaresFormView.as_view(), name='add_hardware'),
-    path('hardwares/<int:pk>/edit', EditHardwaresView.as_view(), name='hardware_edit'),
-    path('hardwares/<int:pk>', HardwaresDetailView.as_view(), name='hardware_detail'),
-    path('hardwares/edit_repair/<int:id>', EditRepairView.as_view(), name='edit_repair'),
-    path('hardwares/delete_repair/<int:id>', delete_repair, name='delete_repair'),
-    path('hardwares/delete/<int:id>', delete),
+    path('', views.HardwaresListView.as_view(), name='hardware_list'),
+    path('add', views.AddHardwaresFormView.as_view(), name='add_hardware'),
+    path('hardwares/<int:pk>/edit', views.EditHardwaresView.as_view(), name='hardware_edit'),
+    path('hardwares/<int:pk>', views.HardwaresDetailView.as_view(), name='hardware_detail'),
+    path('hardwares/edit_repair/<int:id>', views.EditRepairView.as_view(), name='edit_repair'),
+    path('hardwares/delete_repair/<int:id>', views.delete_repair, name='delete_repair'),
+    path('hardwares/delete/<int:id>', views.delete),
+    path('hardwares/places/<int:id>', views.PlacesHardwaresView.as_view(), name='places_hardwares')
 ]

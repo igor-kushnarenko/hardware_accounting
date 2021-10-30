@@ -4,6 +4,7 @@
 
 {% if request.user.is_authenticated %}
 <h2>Основной перечень оборудования</h2>
+<a href="{% url 'export_all_hardwares_xls' %}">Скачать отчёт</a>
 <form action="{% url 'add_hardware' %}">
     <input type="submit" value="Добавить...">
 </form>

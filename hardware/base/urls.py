@@ -12,4 +12,5 @@ urlpatterns = [
     path('hardwares/delete/<int:id>', views.delete),
     path('hardwares/places/<int:id>', views.PlacesHardwaresView.as_view(), name='places_hardwares'),
     path('export_hardwares_xls/<int:id>', views.export_hardwares_xls, name='export_hardwares_xls'),
+    path('export_hardwares_xls/all', views.export_all_hardwares_xls, name='export_all_hardwares_xls'),
 ]

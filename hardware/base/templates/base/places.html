@@ -2,6 +2,7 @@
 {% block title %}{{ place }}{% endblock %}
 {% block content %}
 <h1>Зона: {{place.name}}</h1>
+<h5>Всего единиц: {{ count }}</h5>
 <a href="{% url 'export_hardwares_xls' place.id %}">Скачать отчёт</a>
 <form action="{% url 'add_hardware' %}">
     <input type="submit" value="Добавить...">

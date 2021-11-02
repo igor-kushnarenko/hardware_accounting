@@ -20,6 +20,11 @@ class HardwaresListView(generic.ListView):
     context_object_name = 'hardware_list'
     queryset = Hardware.objects.order_by('type', 'status')
 
+    def get_context_data(self, **kwargs):
+        context = super(HardwaresListView, self).get_context_data(**kwargs)
+        context['count'] = Hardware.objects.count()
+        return context
+
 
 class HardwaresDetailView(View):
     def get(self, request, pk):
@@ -136,9 +141,11 @@ class PlacesHardwaresView(View):
     def get(self, request, id):
         place = Place.objects.get(pk=id)
         hardwares = Hardware.objects.filter(place=id)
+        count = place.hardware.count() # счетчик количества записей
         return render(request, 'base/places.html', context={
             'place': place,
-            'hardwares': hardwares
+            'hardwares': hardwares,
+            'count': count,
         })
 
 

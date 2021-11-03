@@ -5,9 +5,11 @@ from django.shortcuts import render
 from django.views import generic
 from django.views.generic import FormView
 from django.views.generic.base import TemplateView, View
+from rest_framework import viewsets, permissions
 
 from base.models import Hardware, Repair, Place, Type, Manufacturer, Status
 from base.form import HardwareForm, RepairForm
+from base.serializers import HardwareSerializer
 
 
 def index_view(request):
@@ -247,3 +249,9 @@ def export_all_hardwares_xls(request):
 
     wb.save(response)
     return response
+
+
+class HardwareViewSet(viewsets.ModelViewSet):
+    queryset = Hardware.objects.all()
+    serializer_class = HardwareSerializer
+    permission_classes = [permissions.IsAuthenticated]

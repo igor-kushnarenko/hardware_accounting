@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'base',
     'users',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -119,3 +120,9 @@ ONE_DAY_IN_SECONDS = 1 * 24 * 60 * 60
 SESSION_COOKIE_AGE = ONE_DAY_IN_SECONDS
 SESSION_COOKIE_NAME = 'cookie_name'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 100
+}
